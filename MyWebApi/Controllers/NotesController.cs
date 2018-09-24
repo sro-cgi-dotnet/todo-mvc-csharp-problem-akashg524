@@ -23,12 +23,12 @@ namespace MyWebApi.Controllers
 
         // GET api/Notes
         [HttpGet]
-        public ActionResult<List<Note>> Get () 
+        public IActionResult Get () 
         {
             try 
             {
                 var data = access.GetData ();
-                if (data != null) 
+                if (data.Count()!=0) 
                 {
                     return Ok (data);
                 } 
@@ -42,8 +42,8 @@ namespace MyWebApi.Controllers
         }
 
         // GET api/Notes/title
-        [HttpGet ("{id}")]
-        public ActionResult Get (string id) 
+        [HttpGet ("{id}")] 
+        public IActionResult Get (string id) 
         {
             try 
             {
@@ -61,7 +61,7 @@ namespace MyWebApi.Controllers
             }
         }
         [HttpGet("{id}")]
-        public ActionResult Get(string id,[FromQuery] string type)
+        public IActionResult Get(string id,[FromQuery] string type)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace MyWebApi.Controllers
 
         // POST api/Notes
         [HttpPost]
-        public ActionResult Post ([FromBody] Note note) {
+        public IActionResult Post ([FromBody] Note note) {
             try {
                 var status = access.AddData(note);
                 if (status == 1) {
@@ -97,13 +97,14 @@ namespace MyWebApi.Controllers
 
         // PUT api/Notes/5
         [HttpPut ("{id}")]
-        public ActionResult Put (string id, [FromBody] Note updated) {
+        public IActionResult Put (string id, [FromBody] Note updated) 
+        {
             return BadRequest ();
         }
 
         // DELETE api/Notess/5
         [HttpDelete ("{title}")]
-        public ActionResult Delete (String title) 
+        public IActionResult Delete (String title) 
         {
             return Ok ();
         }
